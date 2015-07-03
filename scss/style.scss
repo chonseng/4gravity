@@ -1,4 +1,6 @@
-
+$mainColor: #37195A;
+$darkColor: #26094A;
+$highlightColor: #573480;
 @font-face {
   font-family: "Nixie One";
   src: url(../NixieOne-Regular.otf);
@@ -6,6 +8,10 @@
 @font-face {
   font-family: "Pacifico";
   src: url(../Pacifico.ttf);
+}
+@font-face {
+  font-family: "Maven Pro";
+  src: url(../MavenPro.ttf);
 }
 * {
 	-webkit-box-sizing: border-box;
@@ -22,8 +28,8 @@
 	margin-bottom: 10px;
 }
 body {
-	font-family: 'Nixie One', cursive;
-	background: #24221F;
+	font-family: 'Maven Pro', 'Nixie One', cursive;
+	background: $mainColor; //2
 	color: #D5FBFF;
 }
 h1 {
@@ -34,9 +40,11 @@ h1 {
 .check {
 	width: 80px;
 	height: 80px;
-	background: #fdfdfd;
-	border: 1px solid #eee;
+	background: $darkColor; //2
+	// border: 1px solid #eee;
 	float: left;
+	border-radius: 5px;
+	margin: 2px; // MARGIN in javascript
 }
 
 .player1 {
@@ -67,6 +75,7 @@ h1 {
 	height: 30px;
 	position: relative;
 	top: 8px;
+	border-radius: 5px;
 }
 .turn {
 	line-height: 50px;
@@ -86,11 +95,38 @@ h1 {
 	background: darken(#59D8E6,10%);
 }
 #back {
-	background: #E5B96F;
+	
+	height: 40px;
+	line-height: 40px;
+	border-radius: 20px;
+	text-align: center;
+	width: 100px;
+	float: right;
+	
+	// background: #E5B96F;
+	color: white;
+	margin-top: 5px;
+
 }
-#back:hover {
-	background: darken(#E5B96F,10%);
-}
+// #back:hover {
+// 	background: darken(#E5B96F,10%);
+// }
 .version {
 	text-align: center;
+}
+
+.numberOfPlayer {
+	margin: 0;
+	list-style: none;
+	overflow: auto;
+	li {
+		float: left;
+		padding: 10px 20px;
+		margin: 2px 5px;
+		background: $darkColor;
+		border-radius: 5px;
+		&.selected {
+			background: $highlightColor;
+		}
+	}
 }

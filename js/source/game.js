@@ -81,6 +81,9 @@ $(document).ready(function(){
 		$(".turn .name").text("Player"+turn);
 		$("#player_color").removeClass();
 		$("#player_color").addClass("player"+turn);
+		var preTurn = turn>1 ? turn-1 : numOfPlayer;
+		$("#back").removeClass();
+		$("#back").addClass("player"+preTurn);
 	}
 	var nextTurn = function() {
 		turn++;	
@@ -93,6 +96,7 @@ $(document).ready(function(){
 		changePlayerInfo();
 	}
 	var newGame = function() {
+		$("#back").hide();
 		if ($("#numOfPlayer").val() != "") {
 			numOfPlayer = $("#numOfPlayer").val();
 		}
@@ -137,7 +141,8 @@ $(document).ready(function(){
 		$("#wrapper").html("");
 		// create check
 		var screenWidth = $("#wrapper").width();
-		var myWidth = Math.floor(screenWidth/size);
+		var MARGIN = 2;
+		var myWidth = Math.floor(screenWidth/size) - MARGIN*2;
 
 		for (var i = 0; i < size; i++) {
 			for (var j = 0; j < size; j++) {
@@ -156,10 +161,13 @@ $(document).ready(function(){
 	
 	$(window).resize(function(){
 		var screenWidth = $("#wrapper").width();
-		var myWidth = Math.floor(screenWidth*0.1);
+		var MARGIN = 2;
+		// var myWidth = Math.floor(screenWidth*0.1);
+		var myWidth = Math.floor(screenWidth/size) - MARGIN*2;
 		$(".check").css({"width":myWidth,"height":myWidth});
 	})
 	newGame();
+
 
 	// gameplay
 
@@ -399,5 +407,6 @@ $(document).ready(function(){
 		$(pre_object).removeClass("player"+turn);
 		$("#back").hide();
 		// $(this).addClass("player"+turn);
+		return false;
 	})
 })

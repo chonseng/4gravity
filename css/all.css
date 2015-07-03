@@ -1,0 +1,111 @@
+@font-face {
+  font-family: "Nixie One";
+  src: url(../NixieOne-Regular.otf); }
+
+@font-face {
+  font-family: "Pacifico";
+  src: url(../Pacifico.ttf); }
+
+@font-face {
+  font-family: "Maven Pro";
+  src: url(../MavenPro.ttf); }
+
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; }
+
+.row {
+  width: 100%;
+  max-width: 600px; }
+
+#wrapper {
+  width: 100%;
+  overflow: auto;
+  margin-bottom: 10px; }
+
+body {
+  font-family: 'Maven Pro', 'Nixie One', cursive;
+  background: #37195A;
+  color: #D5FBFF; }
+
+h1 {
+  font-family: 'Pacifico', cursive;
+  color: #D5FBFF;
+  text-align: center; }
+
+.check {
+  width: 80px;
+  height: 80px;
+  background: #26094A;
+  float: left;
+  border-radius: 5px;
+  margin: 2px; }
+
+.player1 {
+  background: #BF0426; }
+
+.player2 {
+  background: #59D8E6; }
+
+.player3 {
+  background: #F0C600; }
+
+.player4 {
+  background: #45BF55; }
+
+.player5 {
+  background: #553285; }
+
+.player6 {
+  background: #FF358B; }
+
+.turn div {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  position: relative;
+  top: 8px;
+  border-radius: 5px; }
+
+.turn {
+  line-height: 50px; }
+
+.crafted {
+  text-align: center; }
+
+.crafted a {
+  color: #59D8E6; }
+
+.button {
+  background: #59D8E6;
+  border-radius: 5px; }
+
+.button:hover {
+  background: #2dd0df; }
+
+#back {
+  height: 40px;
+  line-height: 40px;
+  border-radius: 20px;
+  text-align: center;
+  width: 100px;
+  float: right;
+  color: white;
+  margin-top: 5px; }
+
+.version {
+  text-align: center; }
+
+.numberOfPlayer {
+  margin: 0;
+  list-style: none;
+  overflow: auto; }
+  .numberOfPlayer li {
+    float: left;
+    padding: 10px 20px;
+    margin: 2px 5px;
+    background: #26094A;
+    border-radius: 5px; }
+    .numberOfPlayer li.selected {
+      background: #573480; }

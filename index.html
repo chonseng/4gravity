@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>4Gravity</title>
     <link rel="stylesheet" href="css/foundation.css" />
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/all.css" />
     <script src="js/vendor/modernizr.js"></script>
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -19,7 +19,14 @@
     <div class="row">
       <div class="large-12 columns">
         <h1>4Gravity</h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="large-6 columns">
         <div class="turn">Turn: <div id="player_color"class="player1"></div> <span class="name">Player1</span></div>
+      </div>
+      <div class="large-6 columns">
+        <a href="#" id="back">Back</a>
       </div>
     </div>
     
@@ -30,8 +37,8 @@
         </div>
         Size:<input type="number" id="size" value="10">
         Number of Player:<input type="number" id="numOfPlayer" value="4">
+
         <div class="button" id="new_game">Start New Game</div>
-        <div class="button" id="back">Back</div>
 
     </div>
     <div class="row">
@@ -43,7 +50,7 @@
     <script src="js/vendor/jquery.js"></script>
     <script src="js/vendor/fastclick.js"></script>
     <script src="js/foundation.min.js"></script>
-    <script src="js/game.js"></script>
+    <script src="js/script.js"></script>
 
     <script>
       $(document).foundation();
