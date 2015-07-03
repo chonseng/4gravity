@@ -119,6 +119,7 @@ h1 {
 	margin: 0;
 	list-style: none;
 	overflow: auto;
+	cursor: pointer;
 	li {
 		float: left;
 		padding: 10px 20px;
@@ -129,6 +130,4 @@ h1 {
 			background: $highlightColor;
 		}
 	}	
-}
-.numberOfPlayer {
 }

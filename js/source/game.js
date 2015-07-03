@@ -381,7 +381,11 @@ $(document).ready(function(){
 				if (win[i]==true) hasWon = true;
 			};
 			if (hasWon) {
-				alert("Player"+turn+" won!");
+				// alert("Player"+turn+" won!");
+				swal({
+					title: "Congratulations!",
+					text: "Player"+turn+" won the game!",
+				})
 				endGame();
 				$("#back").hide();
 			}

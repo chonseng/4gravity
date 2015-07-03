@@ -100,7 +100,8 @@ h1 {
 .settings {
   margin: 0;
   list-style: none;
-  overflow: auto; }
+  overflow: auto;
+  cursor: pointer; }
   .settings li {
     float: left;
     padding: 10px 20px;
@@ -109,4 +110,3 @@ h1 {
     border-radius: 5px; }
     .settings li.selected {
       background: #573480; }
-
