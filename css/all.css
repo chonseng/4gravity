@@ -97,15 +97,16 @@ h1 {
 .version {
   text-align: center; }
 
-.numberOfPlayer {
+.settings {
   margin: 0;
   list-style: none;
   overflow: auto; }
-  .numberOfPlayer li {
+  .settings li {
     float: left;
     padding: 10px 20px;
     margin: 2px 5px;
     background: #26094A;
     border-radius: 5px; }
-    .numberOfPlayer li.selected {
+    .settings li.selected {
       background: #573480; }
+

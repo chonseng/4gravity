@@ -98,10 +98,12 @@ $(document).ready(function(){
 	var newGame = function() {
 		$("#back").hide();
 		if ($("#numOfPlayer").val() != "") {
-			numOfPlayer = $("#numOfPlayer").val();
+			// numOfPlayer = $("#numOfPlayer").val();
+			numOfPlayer = $(".numberOfPlayer .selected").html();
 		}
 		if ($("#size").val() != "") {
-			size = $("#size").val();
+			// size = $("#size").val();
+			size = $(".size .selected").html();
 		}
 		turn = 1;
 		changePlayerInfo();
@@ -168,6 +170,15 @@ $(document).ready(function(){
 	})
 	newGame();
 
+	// game settings
+	$(document).on("click tap",".numberOfPlayer li",function() {
+		$(".numberOfPlayer li").removeClass();
+		$(this).addClass("selected");
+	})
+	$(document).on("click tap",".size li",function() {
+		$(".size li").removeClass();
+		$(this).addClass("selected");
+	})
 
 	// gameplay
 

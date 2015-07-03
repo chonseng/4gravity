@@ -115,7 +115,7 @@ h1 {
 	text-align: center;
 }
 
-.numberOfPlayer {
+.settings {
 	margin: 0;
 	list-style: none;
 	overflow: auto;
@@ -128,5 +128,7 @@ h1 {
 		&.selected {
 			background: $highlightColor;
 		}
-	}
+	}	
+}
+.numberOfPlayer {
 }
