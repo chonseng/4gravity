@@ -1,0 +1,109 @@
+@font-face {
+  font-family: "Nixie One";
+  src: url(../NixieOne-Regular.otf);
+}
+@font-face {
+  font-family: "Pacifico";
+  src: url(../Pacifico.ttf);
+}
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.row {
+  width: 100%;
+  max-width: 600px;
+}
+
+#wrapper {
+  width: 100%;
+  overflow: auto;
+  margin-bottom: 10px;
+}
+
+body {
+  font-family: 'Nixie One', cursive;
+  background: #24221F;
+  color: #D5FBFF;
+}
+
+h1 {
+  font-family: 'Pacifico', cursive;
+  color: #D5FBFF;
+  text-align: center;
+}
+
+.check {
+  width: 80px;
+  height: 80px;
+  background: #fdfdfd;
+  border: 1px solid #eee;
+  float: left;
+}
+
+.player1 {
+  background: #BF0426;
+}
+
+.player2 {
+  background: #59D8E6;
+}
+
+.player3 {
+  background: #F0C600;
+}
+
+.player4 {
+  background: #45BF55;
+}
+
+.player5 {
+  background: #553285;
+}
+
+.player6 {
+  background: #FF358B;
+}
+
+.turn div {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  position: relative;
+  top: 8px;
+}
+
+.turn {
+  line-height: 50px;
+}
+
+.crafted {
+  text-align: center;
+}
+
+.crafted a {
+  color: #59D8E6;
+}
+
+.button {
+  background: #59D8E6;
+  border-radius: 5px;
+}
+
+.button:hover {
+  background: #2dcedf;
+}
+
+#back {
+  background: #E5B96F;
+}
+
+#back:hover {
+  background: #dda444;
+}
+
+.version {
+  text-align: center;
+}

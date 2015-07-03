@@ -1,0 +1,52 @@
+<!doctype html>
+<html class="no-js" lang="en" manifest="gravity.appcache">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>4Gravity</title>
+    <link rel="stylesheet" href="css/foundation.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="js/vendor/modernizr.js"></script>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link href="img/Icon-60.png" rel="apple-touch-icon-precomposed" />
+    <link href="img/Icon-76.png" rel="apple-touch-icon-precomposed" sizes="76x76" />
+    <link href="img/Icon-Spotlight-40@3x.png" rel="apple-touch-icon-precomposed" sizes="120x120" />
+    <link href="img/Icon-76@2x.png" rel="apple-touch-icon-precomposed" sizes="152x152" />
+  </head>
+  <body>
+    
+    <div class="row">
+      <div class="large-12 columns">
+        <h1>4Gravity</h1>
+        <div class="turn">Turn: <div id="player_color"class="player1"></div> <span class="name">Player1</span></div>
+      </div>
+    </div>
+    
+    <div class="row">
+
+        <div id="wrapper">
+          
+        </div>
+        Size:<input type="number" id="size" value="10">
+        Number of Player:<input type="number" id="numOfPlayer" value="4">
+        <div class="button" id="new_game">Start New Game</div>
+        <div class="button" id="back">Back</div>
+
+    </div>
+    <div class="row">
+      <div class="large-12 columns">
+        <p class="crafted">Crafted by <a href="http://chonseng.info/">ChonSeng</a></p>
+        <p class="version">Beta 1.4</p>
+      </div>
+    </div>
+    <script src="js/vendor/jquery.js"></script>
+    <script src="js/vendor/fastclick.js"></script>
+    <script src="js/foundation.min.js"></script>
+    <script src="js/game.js"></script>
+
+    <script>
+      $(document).foundation();
+    </script>
+  </body>
+</html>

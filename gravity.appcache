@@ -1,0 +1,25 @@
+CACHE MANIFEST
+# 2014-10-16:v12
+
+CACHE:
+css/foundation.css
+css/foundation.min.css
+css/normalize.css
+css/style.css
+js/foundation.min.js
+js/game.js
+js/vendor/fastclick.js
+js/vendor/jquery.cookie.js
+js/vendor/jquery.js
+js/vendor/modernizr.js
+js/vendor/placeholder.js
+img/Icon-60.png
+img/Icon-72.png
+img/Icon-72@2x.png
+img/Icon-Spotlight-40@3x.png
+NixieOne-Regular.otf
+Pacifico.ttf
+
+# Resources that require the user to be online.
+NETWORK:
+*
