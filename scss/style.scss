@@ -45,6 +45,9 @@ h1 {
 	float: left;
 	border-radius: 5px;
 	margin: 2px; // MARGIN in javascript
+	-webkit-transition: .2s ease-out all;
+	-o-transition: .2s ease-out all;
+	transition: .2s ease-out all;
 }
 
 .player1 {
@@ -94,6 +97,10 @@ h1 {
 .button:hover {
 	background: darken(#59D8E6,10%);
 }
+#new_game {
+	margin: 1rem 0;
+}
+
 #back {
 	
 	height: 40px;

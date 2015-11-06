@@ -40,7 +40,10 @@ h1 {
   background: #26094A;
   float: left;
   border-radius: 5px;
-  margin: 2px; }
+  margin: 2px;
+  -webkit-transition: 0.2s ease-out all;
+  -o-transition: 0.2s ease-out all;
+  transition: 0.2s ease-out all; }
 
 .player1 {
   background: #BF0426; }
@@ -83,6 +86,9 @@ h1 {
 
 .button:hover {
   background: #2dd0df; }
+
+#new_game {
+  margin: 1rem 0; }
 
 #back {
   height: 40px;
