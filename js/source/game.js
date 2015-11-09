@@ -51,9 +51,11 @@ $(document).ready(function(){
 
 	}
 	var size = 10;
+	var maxCoord = size-1;
 	var maxSize = 30;
 	var turn = 1;
 	var numOfPlayer = 4;
+
 	// create 2dimenional array
 	var status = new Array(maxSize);
 	for (var i = 0; i < maxSize; i++) {
@@ -189,7 +191,7 @@ $(document).ready(function(){
 		row = $(this).data("row");
 		column = $(this).data("column");
 		if (isvalid[row][column] == true) {
-			pre_status = clone(status);
+			pre_status = clone(status); // Save the Previous Chess Status
 			pre_isvalid = clone(isvalid);
 			$("#back").show();
 			pre_object = this;
@@ -197,6 +199,7 @@ $(document).ready(function(){
 			status[row][column] = turn;
 			
 
+			// Check whether the new step is a valid step
 			var tmp_row, tmp_column;
 			//search bottom
 			tmp_row = row;
@@ -272,114 +275,226 @@ $(document).ready(function(){
 			var win = new Array(8);
 			var count = 0;
 			var streak = 4;
-			//up
-			win[0]=true;
-			count = 0;
-			for (var i = row-1; i >= 0; i--) {
-				if (status[i][column]!=turn) win[0] = false;
-				count++;
-				if (count==streak-1)break;
-			};
-			if (count<streak-1) win[0] = false;
 
-			//bottom
-			win[1]=true;
-			count = 0;
-			for (var i = row+1; i < size; i++) {
-				if (status[i][column]!=turn) win[1] = false;
-				count++;
-				if (count==streak-1)break;
-			};
-			if (count<streak-1) win[1] = false;
-
-			//left
-			win[2]=true;
-			count = 0;
-			for (var i = column-1; i >= 0; i--) {
-				console.log(status[row][i]);
-				if (status[row][i]!=turn) win[2] = false;
-				count++;
-				if (count==streak-1)break;
-			};
-			if (count<streak-1) win[2] = false;
-
-			//right
-			win[3]=true;
-			count = 0;
-			for (var i = column+1; i < size; i++) {
-				if (status[row][i]!=turn) win[3] = false;
-				count++;
-				if (count==streak-1)break;
-			};
-			if (count<streak-1) win[3] = false;
-
-			// top left
-			win[4]=true;
-			count = 0;
-			tmp_column = column;
-			tmp_row = row;
-			for (var i = 0; i < streak-1; i++) {
-				if (tmp_row<=0 || tmp_column<=0) {
-					win[4]=false;
-					break;
+			var hasWon = false;
+			function up() { tmp_row--; }
+			function down() { tmp_row++; }
+			function left() { tmp_column--; }
+			function right() { tmp_column++; }
+			function isOutOfBox(x,y) {
+				if (x < 0 || x > size || y < 0 || y > size) return true;
+				else return false;
+			}
+			function jumpTo(x,y) {
+				tmp_row = row;  // by default
+				tmp_column = column; // by default
+				var steps = streak - 1;
+				// calculate how many steps should move
+				if (x == "up") {
+					if ((row-steps) < 0 ) steps = row;
 				}
-				tmp_row--;
-				tmp_column--;
-				if (status[tmp_row][tmp_column]!=turn) win[4] = false; 
+				else if (x == "down") {
+					if ((row+steps) > maxCoord ) steps = maxCoord-row;
+				}
+
+				if (y == "left") {
+					if ((column-steps) < 0 ) steps = column;
+				}
+				else if (y == "right") {
+					if ((column+steps) > maxCoord ) steps = maxCoord-column;
+				}
+				console.log(steps);
+				// jump
+				if (x == "up") {
+					tmp_row = row - steps;
+				}
+				else if (x == "down") {
+					tmp_row = row + steps;	
+				}
+				if (y == "left") {
+					tmp_column = column - steps;
+				}
+				else if (y == "right") {
+					tmp_column = column + steps;
+				}
+				if (tmp_row > size) tmp_row = size;
+				if (tmp_column > size) tmp_column = size;
+				if (tmp_row < 0) tmp_row = 0;
+				if (tmp_column < 0) tmp_column = 0;
+			}
+			// top left to bottom right
+			jumpTo("up","left");
+			count = 0;
+			for (var i = 0; i < 7; i++) {
+				if (status[tmp_row][tmp_column] == turn) {
+					count++;
+					// console.log("tmp_row",tmp_row);
+					// console.log("tmp_column",tmp_column);
+					// console.log("tmp_row",tmp_row);
+					// console.log("turn",turn);
+					// console.log("count",count);
+					if (count == streak) hasWon = true;
+				} else count = 0;
+				down();
+				right();
+				if (isOutOfBox(tmp_row,tmp_column)) break;
+			};
+			console.log(hasWon);
+
+			// top right to bottom left
+			console.log("-------------*************************-------------");
+			jumpTo("up","right");
+			count = 0;
+			console.log("row",row);
+			console.log("column",column);
+			for (var i = 0; i < 7; i++) {
+				console.log("tmp_row",tmp_row);
+				console.log("tmp_column",tmp_column);
+				console.log("tmp_row",tmp_row);
+				console.log("turn",turn);
+				console.log("count",count);
+				if (status[tmp_row][tmp_column] == turn) {
+					count++;
+					if (count == streak) hasWon = true;
+				} else count = 0;
+				down();
+				left();
+				if (isOutOfBox(tmp_row,tmp_column)) break;
+			};
+			// left to right
+			jumpTo("","left")
+			count = 0;
+			for (var i = 0; i < 7; i++) {
+				if (status[tmp_row][tmp_column] == turn) {
+					count++;
+					if (count == streak) hasWon = true;
+				} else count = 0;
+				right();
+				if (isOutOfBox(tmp_row,tmp_column)) break;
+			};
+			// top to bottom
+			jumpTo("up","")
+			count = 0;
+			for (var i = 0; i < 7; i++) {
+				if (status[tmp_row][tmp_column] == turn) {
+					count++;
+					if (count == streak) hasWon = true;
+				} else count = 0;
+
+				down();
+				if (isOutOfBox(tmp_row,tmp_column)) break;
 			};
 
-			// top right
-			win[5]=true;
-			count = 0;
-			tmp_column = column;
-			tmp_row = row;
-			for (var i = 0; i < streak-1; i++) {
-				if (tmp_row<=0 || tmp_column>=size-1) {
-					win[5]=false;
-					break;
-				}
-				tmp_row--;
-				tmp_column++;
-				if (status[tmp_row][tmp_column]!=turn) win[5] = false; 
-			};
+			/* end */
 
-			// bottom left
-			win[6]=true;
-			count = 0;
-			tmp_column = column;
-			tmp_row = row;
-			for (var i = 0; i < streak-1; i++) {
-				if (tmp_row>=size-1 || tmp_column<=0) {
-					win[6]=false;
-					break;
-				}
-				tmp_row++;
-				tmp_column--;
-				if (status[tmp_row][tmp_column]!=turn) win[6] = false; 
-			};
+			// //up
+			// win[0]=true;
+			// count = 0;
+			// for (var i = row-1; i >= 0; i--) {
+			// 	if (status[i][column]!=turn) win[0] = false;
+			// 	count++;
+			// 	if (count==streak-1)break;
+			// };
+			// if (count<streak-1) win[0] = false;
 
-			// bottom right
-			win[7]=true;
-			count = 0;
-			tmp_column = column;
-			tmp_row = row;
-			for (var i = 0; i < streak-1; i++) {
-				if (tmp_row>=size-1 || tmp_column>=size-1) {
-					win[7]=false;
-					break;
-				}
-				tmp_row++;
-				tmp_column++;
-				if (status[tmp_row][tmp_column]!=turn) win[7] = false; 
-			};
+			// //bottom
+			// win[1]=true;
+			// count = 0;
+			// for (var i = row+1; i < size; i++) {
+			// 	if (status[i][column]!=turn) win[1] = false;
+			// 	count++;
+			// 	if (count==streak-1)break;
+			// };
+			// if (count<streak-1) win[1] = false;
+
+			// //left
+			// win[2]=true;
+			// count = 0;
+			// for (var i = column-1; i >= 0; i--) {
+			// 	console.log(status[row][i]);
+			// 	if (status[row][i]!=turn) win[2] = false;
+			// 	count++;
+			// 	if (count==streak-1)break;
+			// };
+			// if (count<streak-1) win[2] = false;
+
+			// //right
+			// win[3]=true;
+			// count = 0;
+			// for (var i = column+1; i < size; i++) {
+			// 	if (status[row][i]!=turn) win[3] = false;
+			// 	count++;
+			// 	if (count==streak-1)break;
+			// };
+			// if (count<streak-1) win[3] = false;
+
+			// // top left
+			// win[4]=true;
+			// count = 0;
+			// tmp_column = column;
+			// tmp_row = row;
+			// for (var i = 0; i < streak-1; i++) {
+			// 	if (tmp_row<=0 || tmp_column<=0) {
+			// 		win[4]=false;
+			// 		break;
+			// 	}
+			// 	tmp_row--;
+			// 	tmp_column--;
+			// 	if (status[tmp_row][tmp_column]!=turn) win[4] = false; 
+			// };
+
+			// // top right
+			// win[5]=true;
+			// count = 0;
+			// tmp_column = column;
+			// tmp_row = row;
+			// for (var i = 0; i < streak-1; i++) {
+			// 	if (tmp_row<=0 || tmp_column>=size-1) {
+			// 		win[5]=false;
+			// 		break;
+			// 	}
+			// 	tmp_row--;
+			// 	tmp_column++;
+			// 	if (status[tmp_row][tmp_column]!=turn) win[5] = false; 
+			// };
+
+			// // bottom left
+			// win[6]=true;
+			// count = 0;
+			// tmp_column = column;
+			// tmp_row = row;
+			// for (var i = 0; i < streak-1; i++) {
+			// 	if (tmp_row>=size-1 || tmp_column<=0) {
+			// 		win[6]=false;
+			// 		break;
+			// 	}
+			// 	tmp_row++;
+			// 	tmp_column--;
+			// 	if (status[tmp_row][tmp_column]!=turn) win[6] = false; 
+			// };
+
+			// // bottom right
+			// win[7]=true;
+			// count = 0;
+			// tmp_column = column;
+			// tmp_row = row;
+			// for (var i = 0; i < streak-1; i++) {
+			// 	if (tmp_row>=size-1 || tmp_column>=size-1) {
+			// 		win[7]=false;
+			// 		break;
+			// 	}
+			// 	tmp_row++;
+			// 	tmp_column++;
+			// 	if (status[tmp_row][tmp_column]!=turn) win[7] = false; 
+			// };
 
 			//check if has won
-			
 
-			hasWon = false;
-			for (var i = 0; i < 8; i++) { // check 8 direction
-				if (win[i]==true) hasWon = true;
-			};
+
+			// hasWon = false;
+			// for (var i = 0; i < 8; i++) { // check 8 direction
+			// 	if (win[i]==true) hasWon = true;
+			// };
 			if (hasWon) {
 				// alert("Player"+turn+" won!");
 				swal({
