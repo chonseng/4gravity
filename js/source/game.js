@@ -51,7 +51,6 @@ $(document).ready(function(){
 
 	}
 	var size = 10;
-	var maxCoord = size-1;
 	var maxSize = 30;
 	var turn = 1;
 	var numOfPlayer = 4;
@@ -282,13 +281,15 @@ $(document).ready(function(){
 			function left() { tmp_column--; }
 			function right() { tmp_column++; }
 			function isOutOfBox(x,y) {
-				if (x < 0 || x > size || y < 0 || y > size) return true;
+				var maxCoord = size-1;
+				if (x < 0 || x > maxCoord || y < 0 || y > maxCoord) return true;
 				else return false;
 			}
 			function jumpTo(x,y) {
 				tmp_row = row;  // by default
 				tmp_column = column; // by default
 				var steps = streak - 1;
+				var maxCoord = size-1;
 				// calculate how many steps should move
 				if (x == "up") {
 					if ((row-steps) < 0 ) steps = row;
