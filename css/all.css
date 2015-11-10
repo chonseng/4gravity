@@ -21,7 +21,7 @@
 
 #wrapper {
   width: 100%;
-  overflow: auto;
+  overflow: visible;
   margin-bottom: 10px; }
 
 body {
@@ -69,7 +69,18 @@ h1 {
   height: 30px;
   position: relative;
   top: 8px;
-  border-radius: 5px; }
+  border-radius: 5px;
+  animation-duration: 10s;
+  animation-delay: 4s;
+  animation-name: turnAround;
+  animation-iteration-count: infinite; }
+
+@keyframes turnAround {
+  0% {
+    transform: rotate(0); }
+
+  10%, 100% {
+    transform: rotateZ(1turn); } }
 
 .turn {
   line-height: 50px; }
