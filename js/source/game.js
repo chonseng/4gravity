@@ -183,7 +183,7 @@ $(document).ready(function(){
 
 	// gameplay
 
-	
+	var pre_lastClicked;
 
 	var row,column;
 	$(document).on("click tap",".check",function(){
@@ -197,6 +197,7 @@ $(document).ready(function(){
 			$(this).addClass("player"+turn);
 			status[row][column] = turn;
 			// Add CSS Animation (Notice that it's the last clicked square)
+			pre_lastClicked = $(".lastClicked");
 			$(".check").removeClass("lastClicked");
 			$(this).addClass("lastClicked");
 			
@@ -307,7 +308,6 @@ $(document).ready(function(){
 				else if (y == "right") {
 					if ((column+steps) > maxCoord ) steps = maxCoord-column;
 				}
-				console.log(steps);
 				// jump
 				if (x == "up") {
 					tmp_row = row - steps;
@@ -332,31 +332,18 @@ $(document).ready(function(){
 			for (var i = 0; i < 7; i++) {
 				if (status[tmp_row][tmp_column] == turn) {
 					count++;
-					// console.log("tmp_row",tmp_row);
-					// console.log("tmp_column",tmp_column);
-					// console.log("tmp_row",tmp_row);
-					// console.log("turn",turn);
-					// console.log("count",count);
 					if (count == streak) hasWon = true;
 				} else count = 0;
 				down();
 				right();
 				if (isOutOfBox(tmp_row,tmp_column)) break;
 			};
-			console.log(hasWon);
+
 
 			// top right to bottom left
-			console.log("-------------*************************-------------");
 			jumpTo("up","right");
 			count = 0;
-			console.log("row",row);
-			console.log("column",column);
 			for (var i = 0; i < 7; i++) {
-				console.log("tmp_row",tmp_row);
-				console.log("tmp_column",tmp_column);
-				console.log("tmp_row",tmp_row);
-				console.log("turn",turn);
-				console.log("count",count);
 				if (status[tmp_row][tmp_column] == turn) {
 					count++;
 					if (count == streak) hasWon = true;
@@ -512,11 +499,8 @@ $(document).ready(function(){
 				nextTurn();
 			}
 
-			console.log(win);
-			// console.log("row",row,"column",column);
 			isvalid[row][column] = false;
 			console.log("status",status);
-			// console.log(isvalid);
 		}
 	})
 
@@ -539,6 +523,9 @@ $(document).ready(function(){
 		isvalid = clone(pre_isvalid);
 		preTurn();
 		$(pre_object).removeClass("player"+turn);
+		console.log(pre_object);
+		$(".check").removeClass("lastClicked");
+		$(pre_lastClicked).addClass("lastClicked");
 		$("#back").hide();
 		// $(this).addClass("player"+turn);
 		return false;
