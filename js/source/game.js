@@ -196,6 +196,9 @@ $(document).ready(function(){
 			pre_object = this;
 			$(this).addClass("player"+turn);
 			status[row][column] = turn;
+			// Add CSS Animation (Notice that it's the last clicked square)
+			$(".check").removeClass("lastClicked");
+			$(this).addClass("lastClicked");
 			
 
 			// Check whether the new step is a valid step

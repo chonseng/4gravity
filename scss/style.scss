@@ -48,6 +48,30 @@ h1 {
 	-webkit-transition: .2s ease-out all;
 	-o-transition: .2s ease-out all;
 	transition: .2s ease-out all;
+
+	&.lastClicked {
+		animation-duration: 6s;
+		animation-delay: 5s;
+		animation-name: pulse;
+		animation-iteration-count: infinite;
+	}
+}
+@keyframes pulse {
+	0% {
+  		transform: scale(1);
+	}
+
+	2.5%, 7.5% {
+		transform: scale(1.2);
+	}
+
+	5% {
+		transform: scale(1);	
+	}
+
+	10%, 100% {
+		transform: scale(1);
+	}
 }
 
 .player1 {
