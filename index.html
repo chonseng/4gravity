@@ -16,54 +16,62 @@
     <script src="dist/sweetalert.min.js"></script> <link rel="stylesheet" type="text/css" href="dist/sweetalert.css">
   </head>
   <body>
-    
-    <div class="row">
-      <div class="large-12 columns">
-        <h1>4Gravity</h1>
+    <header>
+      <div class="row">
+        <div class="large-12 columns">
+          <h1>4Gravity</h1>
+        </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="large-6 medium-6 small-6 columns">
-        <div class="turn">Turn: <div id="player_color" class="player1"></div> <span class="name">Player1</span></div>
+    </header>
+    <section>
+      <div class="row">
+        <div class="large-6 medium-6 small-6 columns">
+          <div class="turn">Turn: <div id="player_color" class="player1"></div> <span class="name">Player1</span></div>
+        </div>
+        <div class="large-6 medium-6 small-6 columns">
+          <a href="#" id="back">Back</a>
+        </div>
       </div>
-      <div class="large-6 medium-6 small-6 columns">
-        <a href="#" id="back">Back</a>
-      </div>
-    </div>
-    
-    <div class="row">
-
+      <div class="row">
         <div id="wrapper">
           
         </div>
-        Size:
-        <ul class="size settings">
-          <li>8</li>
-          <li>9</li>
-          <li class="selected">10</li>
-          <li>11</li>
-          <li>12</li>
-          <li>13</li>
-          <li>14</li>
-          <li>15</li>
-        </ul>
-        Number of Player:
-        <ul class="numberOfPlayer settings">
-          <li>2</li>
-          <li>3</li>
-          <li class="selected">4</li>
-          <li>5</li>
-          <li>6</li>
-        </ul>
-        <div class="button" id="new_game">Start New Game</div>
-
-    </div>
-    <div class="row">
-      <div class="large-12 columns">
-        <p class="crafted">Crafted by <a href="http://chonseng.info/">ChonSeng</a></p>
-        <p class="version">Beta 2.2</p>
       </div>
-    </div>
+    </section>
+    <section>
+      <div class="row">
+          <h1>New Game</h1>
+          Size:
+          <ul class="size settings">
+            <li>8</li>
+            <li>9</li>
+            <li class="selected">10</li>
+            <li>11</li>
+            <li>12</li>
+            <li>13</li>
+            <li>14</li>
+            <li>15</li>
+          </ul>
+          Number of Player:
+          <ul class="numberOfPlayer settings">
+            <li>2</li>
+            <li>3</li>
+            <li class="selected">4</li>
+            <li>5</li>
+            <li>6</li>
+          </ul>
+          <div class="button" id="new_game">Start New Game</div>
+
+      </div>
+    </section>
+    <footer>
+      <div class="row">
+        <div class="large-12 columns">
+          <p class="crafted">Crafted by <a href="http://chonseng.info/">ChonSeng</a></p>
+          <p class="version">Beta 2.2</p>
+        </div>
+      </div>
+    </footer>
     <script src="js/vendor/jquery.js"></script>
     <script src="js/vendor/fastclick.js"></script>
     <script src="js/foundation.min.js"></script>
