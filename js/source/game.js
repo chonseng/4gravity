@@ -1,4 +1,5 @@
 $(document).ready(function(){
+	// Use to clone a array
 	function clone(src) {
 		function mixin(dest, source, copyFunc) {
 			var name, s, i, empty = {};
@@ -50,9 +51,11 @@ $(document).ready(function(){
 		return mixin(r, src, clone);
 
 	}
-	var size = 10;
+
+	// game setting
+	var size = 10; // size of the chess
 	var maxSize = 30;
-	var turn = 1;
+	var turn = 1; // player's turn
 	var numOfPlayer = 4;
 
 	// create 2dimenional array
@@ -78,6 +81,8 @@ $(document).ready(function(){
 	var pre_object;
 	$("#back").hide();
 	
+	$("#game").hide();
+
 	var changePlayerInfo = function() {
 		$(".turn .name").text("Player"+turn);
 		$("#player_color").removeClass();
@@ -153,6 +158,7 @@ $(document).ready(function(){
 				$(".check").css({"width":myWidth,"height":myWidth});
 			};
 		};
+
 	}
 	var endGame = function () {
 		for (var i = 0; i < size; i++) {
@@ -512,10 +518,25 @@ $(document).ready(function(){
 			alert("Range of size: 5-30");	
 		}
 		else {
-			if (window.confirm("Are you sure to start a new game?")) {
-					newGame();
-			}
+			swal({
+				title: "Are you sure to start a new game?",
+				text: "You will not be able to recover this game progress!",
+				type: "info",
+				showCancelButton: true,
+				confirmButtonColor: "#DD6B55",
+				confirmButtonText: "Yes, start a new game!",
+				closeOnConfirm: true
+			},
+			function(){
+				$("#game").show();
+				newGame();
+			});
+			// if (window.confirm("Are you sure to start a new game?")) {
+			// 		$("#game").show();
+			// 		newGame();
+			// }
 		}
+
 	})
 
 	$("#back").click(function(){

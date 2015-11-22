@@ -1,6 +1,12 @@
 $mainColor: #37195A;
 $darkColor: #26094A;
 $highlightColor: #573480;
+$red: #BF0426;
+$blue: #59D8E6;
+$yellow: #F0C600;
+$green: #45BF55;
+$purple: #553285;
+$pink: #FF358B;
 @font-face {
   font-family: "Nixie One";
   src: url(../NixieOne-Regular.otf);
@@ -75,25 +81,25 @@ h1 {
 }
 
 .player1 {
-	background: #BF0426;
+	background: $red;
 }
 
 .player2 {
-	background: #59D8E6;
+	background: $blue;
 }
 
 .player3 {
-	background: #F0C600;
+	background: $yellow;
 }
 
 .player4 {
-	background: #45BF55;
+	background: $green;
 }
 .player5 {
-	background: #553285;
+	background: $pink;
 }
 .player6 {
-	background: #FF358B;
+	background: $purple;
 }
 
 .turn div{
@@ -127,17 +133,18 @@ h1 {
 	text-align: center;
 }
 .crafted a {
-	color: #59D8E6;
+	color: $blue;
 }
 .button {
-	background: #59D8E6;
+	background: $pink;
 	border-radius: 5px;
 }
 .button:hover {
-	background: darken(#59D8E6,10%);
+	background: darken($pink,10%);
 }
 #new_game {
 	margin: 1rem 0;
+	display: block;
 }
 
 #back {
@@ -173,6 +180,12 @@ h1 {
 		background: $darkColor;
 		border-radius: 5px;
 		&.selected {
+			&:nth-child(6n+1) { background: $red }
+			&:nth-child(6n+2) { background: $blue }
+			&:nth-child(6n+3) { background: $yellow }
+			&:nth-child(6n+4) { background: $green }
+			&:nth-child(6n+5) { background: $pink }
+			&:nth-child(6n) { background: $purple }
 			background: $highlightColor;
 		}
 	}	
