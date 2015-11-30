@@ -53,35 +53,54 @@ $(document).ready(function(){
 	}
 
 	// game setting
+	
+	// ls stand for localstorage
 	var size = 10; // size of the chess
-	var maxSize = 30;
-	var turn = 1; // player's turn
 	var numOfPlayer = 4;
+	var turn = 1; // player's turn
+	var gameEnded = false;
+
+	// get data from localStorage
+	console.log(localStorage["gameSetting"]);
+	if (localStorage["gameSetting"] != null && localStorage["gameSetting"] != "") {
+		var ls_size = JSON.parse(localStorage["gameSetting"]).size;
+		var ls_numOfPlayer = JSON.parse(localStorage["gameSetting"]).numOfPlayer;
+		if (ls_size != null || ls_size != "") size = ls_size;
+		if (ls_numOfPlayer != null || ls_numOfPlayer != "") numOfPlayer = ls_numOfPlayer;
+	}
+
+	$(".numOfPlayer li").removeClass();
+	$("#numOfPlayer-"+numOfPlayer).addClass("selected");
+	$(".size li").removeClass();
+	$("#size-"+size).addClass("selected");
+
+
+	var MAX_SIZE = 30;
 
 	// create 2dimenional array
-	var status = new Array(maxSize);
-	for (var i = 0; i < maxSize; i++) {
-			status[i] = new Array(maxSize);
+	var status = new Array(MAX_SIZE);
+	for (var i = 0; i < MAX_SIZE; i++) {
+			status[i] = new Array(MAX_SIZE);
 	};
 	// create 2dimenional array
-	var isvalid = new Array(maxSize);
-	for (var i = 0; i < maxSize; i++) {
-			isvalid[i] = new Array(maxSize);
+	var isvalid = new Array(MAX_SIZE);
+	for (var i = 0; i < MAX_SIZE; i++) {
+			isvalid[i] = new Array(MAX_SIZE);
 	};
 	// create 2dimenional array
-	var pre_status = new Array(maxSize);
-	for (var i = 0; i < maxSize; i++) {
-			pre_status[i] = new Array(maxSize);
+	var pre_status = new Array(MAX_SIZE);
+	for (var i = 0; i < MAX_SIZE; i++) {
+			pre_status[i] = new Array(MAX_SIZE);
 	};
 	// create 2dimenional array
-	var pre_isvalid = new Array(maxSize);
-	for (var i = 0; i < maxSize; i++) {
-			pre_isvalid[i] = new Array(maxSize);
+	var pre_isvalid = new Array(MAX_SIZE);
+	for (var i = 0; i < MAX_SIZE; i++) {
+			pre_isvalid[i] = new Array(MAX_SIZE);
 	};
 	var pre_object;
 	$("#back").hide();
 	
-	$("#game").hide();
+	// $("#game").hide();
 
 	var changePlayerInfo = function() {
 		$(".turn .name").text("Player"+turn);
@@ -102,10 +121,11 @@ $(document).ready(function(){
 		changePlayerInfo();
 	}
 	var newGame = function() {
+		gameEnded = false;
 		$("#back").hide();
 		if ($("#numOfPlayer").val() != "") {
 			// numOfPlayer = $("#numOfPlayer").val();
-			numOfPlayer = $(".numberOfPlayer .selected").html();
+			numOfPlayer = $(".numOfPlayer .selected").html();
 		}
 		if ($("#size").val() != "") {
 			// size = $("#size").val();
@@ -146,12 +166,13 @@ $(document).ready(function(){
 			isvalid[size-1][i] = true;
 		};
 
+
 		$("#wrapper").html("");
 		// create check
 		var screenWidth = $("#wrapper").width();
 		var MARGIN = 2;
 		var myWidth = Math.floor(screenWidth/size) - MARGIN*2;
-
+		console.log("SIZE",size);
 		for (var i = 0; i < size; i++) {
 			for (var j = 0; j < size; j++) {
 				$("#wrapper").append('<div data-row="'+i+'" data-column="'+j+'" class="check"></div>');
@@ -159,8 +180,39 @@ $(document).ready(function(){
 			};
 		};
 
+		// get data from localStorage
+		if (localStorage["gameStatus"] != null  && localStorage["gameStatus"] != "") {
+			console.log(JSON.parse(localStorage["gameStatus"]).status);
+			var ls_isvalid = JSON.parse(localStorage["gameStatus"]).isvalid;
+			var ls_status = JSON.parse(localStorage["gameStatus"]).status;
+			var ls_pre_status = JSON.parse(localStorage["gameStatus"]).pre_status;
+			var ls_pre_isvalid = JSON.parse(localStorage["gameStatus"]).pre_isvalid;
+			var ls_turn = JSON.parse(localStorage["gameStatus"]).turn;
+			for (var i = 0; i < size; i++) {
+				for (var j = 0; j < size; j++) {
+					if (ls_status[i][j] != 0) {
+						console.log('div[data-row="'+i+'"][data-column="'+j+'"]');
+						$('div[data-row="'+i+'"][data-column="'+j+'"]').addClass("player"+ls_status[i][j]);
+					}
+				};
+			};	
+			isvalid = ls_isvalid;
+			status = ls_status;
+			pre_status = ls_pre_status;
+			pre_isvalid	= ls_pre_isvalid;
+			turn = ls_turn;
+		}
+		
+		// create gameSetting object and save it to localStorage
+		var gameSettingForJSON = {
+			"numOfPlayer": numOfPlayer,
+			"size": size,
+		}
+		localStorage["gameSetting"] = JSON.stringify(gameSettingForJSON);
+
 	}
 	var endGame = function () {
+		gameEnded = true;
 		for (var i = 0; i < size; i++) {
 			for (var j = 0; j < size; j++) {
 				isvalid[i][j] = false;
@@ -176,10 +228,10 @@ $(document).ready(function(){
 		$(".check").css({"width":myWidth,"height":myWidth});
 	})
 	newGame();
-
+	changePlayerInfo();
 	// game settings
-	$(document).on("click tap",".numberOfPlayer li",function() {
-		$(".numberOfPlayer li").removeClass();
+	$(document).on("click tap",".numOfPlayer li",function() {
+		$(".numOfPlayer li").removeClass();
 		$(this).addClass("selected");
 	})
 	$(document).on("click tap",".size li",function() {
@@ -189,10 +241,14 @@ $(document).ready(function(){
 
 	// gameplay
 
-	var pre_lastClicked;
+	var pre_lastClicked; // save the last last clicked move for Back button
 
 	var row,column;
 	$(document).on("click tap",".check",function(){
+		if (gameEnded) {
+			var top = $("#newGame").offset().top;
+		    $('html,body').animate({scrollTop:top},300);
+		}
 		row = $(this).data("row");
 		column = $(this).data("column");
 		if (isvalid[row][column] == true) {
@@ -206,7 +262,6 @@ $(document).ready(function(){
 			pre_lastClicked = $(".lastClicked");
 			$(".check").removeClass("lastClicked");
 			$(this).addClass("lastClicked");
-			
 
 			// Check whether the new step is a valid step
 			var tmp_row, tmp_column;
@@ -506,7 +561,18 @@ $(document).ready(function(){
 			}
 
 			isvalid[row][column] = false;
-			console.log("status",status);
+			// console.log("status",status);
+
+			// Create gameStatus object and save it to localStorage
+			var gameStatusForJSON = {
+				"turn": turn,
+				"status": status,
+				"isvalid": isvalid,
+				"pre_status": pre_status,
+				"pre_isvalid": pre_isvalid,
+			}
+			localStorage["gameStatus"] = JSON.stringify(gameStatusForJSON);
+			// console.log(localStorage["gameStatus"]);
 		}
 	})
 
@@ -529,6 +595,8 @@ $(document).ready(function(){
 			},
 			function(){
 				$("#game").show();
+				// new game new gameStatus
+				localStorage["gameStatus"] = "";
 				newGame();
 			});
 			// if (window.confirm("Are you sure to start a new game?")) {
