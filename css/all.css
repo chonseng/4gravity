@@ -49,6 +49,11 @@ h1 {
     animation-delay: 5s;
     animation-name: pulse;
     animation-iteration-count: infinite; }
+  .check.wonStreak {
+    animation-duration: 4s;
+    animation-delay: 0s;
+    animation-name: wonPulse;
+    animation-iteration-count: infinite; }
 
 @keyframes pulse {
   0% {
@@ -62,6 +67,16 @@ h1 {
 
   10%, 100% {
     transform: scale(1); } }
+
+@keyframes wonPulse {
+  0% {
+    transform: scale(1) rotateZ(0); }
+
+  5% {
+    transform: scale(1.2) rotateZ(0); }
+
+  35%, 100% {
+    transform: scale(1) rotateZ(1turn); } }
 
 .player1 {
   background: #BF0426; }

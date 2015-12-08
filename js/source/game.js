@@ -65,8 +65,8 @@ $(document).ready(function(){
 	if (localStorage["gameSetting"] != null && localStorage["gameSetting"] != "") {
 		var ls_size = JSON.parse(localStorage["gameSetting"]).size;
 		var ls_numOfPlayer = JSON.parse(localStorage["gameSetting"]).numOfPlayer;
-		if (ls_size != null || ls_size != "") size = ls_size;
-		if (ls_numOfPlayer != null || ls_numOfPlayer != "") numOfPlayer = ls_numOfPlayer;
+		if (ls_size != null && ls_size != "") size = ls_size;
+		if (ls_numOfPlayer != null && ls_numOfPlayer != "") numOfPlayer = ls_numOfPlayer;
 	}
 
 	$(".numOfPlayer li").removeClass();
@@ -182,25 +182,27 @@ $(document).ready(function(){
 
 		// get data from localStorage
 		if (localStorage["gameStatus"] != null  && localStorage["gameStatus"] != "") {
-			console.log(JSON.parse(localStorage["gameStatus"]).status);
-			var ls_isvalid = JSON.parse(localStorage["gameStatus"]).isvalid;
-			var ls_status = JSON.parse(localStorage["gameStatus"]).status;
-			var ls_pre_status = JSON.parse(localStorage["gameStatus"]).pre_status;
-			var ls_pre_isvalid = JSON.parse(localStorage["gameStatus"]).pre_isvalid;
-			var ls_turn = JSON.parse(localStorage["gameStatus"]).turn;
-			for (var i = 0; i < size; i++) {
-				for (var j = 0; j < size; j++) {
-					if (ls_status[i][j] != 0) {
-						console.log('div[data-row="'+i+'"][data-column="'+j+'"]');
-						$('div[data-row="'+i+'"][data-column="'+j+'"]').addClass("player"+ls_status[i][j]);
-					}
-				};
-			};	
-			isvalid = ls_isvalid;
-			status = ls_status;
-			pre_status = ls_pre_status;
-			pre_isvalid	= ls_pre_isvalid;
-			turn = ls_turn;
+			if (!JSON.parse(localStorage["gameStatus"]).hasWon) {
+				console.log(JSON.parse(localStorage["gameStatus"]).status);
+				var ls_isvalid = JSON.parse(localStorage["gameStatus"]).isvalid;
+				var ls_status = JSON.parse(localStorage["gameStatus"]).status;
+				var ls_pre_status = JSON.parse(localStorage["gameStatus"]).pre_status;
+				var ls_pre_isvalid = JSON.parse(localStorage["gameStatus"]).pre_isvalid;
+				var ls_turn = JSON.parse(localStorage["gameStatus"]).turn;
+				for (var i = 0; i < size; i++) {
+					for (var j = 0; j < size; j++) {
+						if (ls_status[i][j] != 0) {
+							console.log('div[data-row="'+i+'"][data-column="'+j+'"]');
+							$('div[data-row="'+i+'"][data-column="'+j+'"]').addClass("player"+ls_status[i][j]);
+						}
+					};
+				};	
+				isvalid = ls_isvalid;
+				status = ls_status;
+				pre_status = ls_pre_status;
+				pre_isvalid	= ls_pre_isvalid;
+				turn = ls_turn;
+			}
 		}
 		
 		// create gameSetting object and save it to localStorage
@@ -387,13 +389,23 @@ $(document).ready(function(){
 				if (tmp_row < 0) tmp_row = 0;
 				if (tmp_column < 0) tmp_column = 0;
 			}
+			var won = {
+				top_left_bottom_right: false,
+				top_right_bottom_left: false,
+				top_bottom: false,
+				left_right: false,
+			}
+			console.log(won);
 			// top left to bottom right
 			jumpTo("up","left");
 			count = 0;
 			for (var i = 0; i < 7; i++) {
 				if (status[tmp_row][tmp_column] == turn) {
 					count++;
-					if (count == streak) hasWon = true;
+					if (count == streak) {
+						hasWon = true;
+						won.top_left_bottom_right = true;
+					}
 				} else count = 0;
 				down();
 				right();
@@ -407,7 +419,10 @@ $(document).ready(function(){
 			for (var i = 0; i < 7; i++) {
 				if (status[tmp_row][tmp_column] == turn) {
 					count++;
-					if (count == streak) hasWon = true;
+					if (count == streak) {
+						hasWon = true;
+						won.top_right_bottom_left = true;
+					}
 				} else count = 0;
 				down();
 				left();
@@ -419,7 +434,10 @@ $(document).ready(function(){
 			for (var i = 0; i < 7; i++) {
 				if (status[tmp_row][tmp_column] == turn) {
 					count++;
-					if (count == streak) hasWon = true;
+					if (count == streak) {
+						hasWon = true;
+						won.left_right = true;
+					}
 				} else count = 0;
 				right();
 				if (isOutOfBox(tmp_row,tmp_column)) break;
@@ -430,7 +448,10 @@ $(document).ready(function(){
 			for (var i = 0; i < 7; i++) {
 				if (status[tmp_row][tmp_column] == turn) {
 					count++;
-					if (count == streak) hasWon = true;
+					if (count == streak) {
+						hasWon = true;
+						won.top_bottom = true;
+					}
 				} else count = 0;
 
 				down();
@@ -438,6 +459,92 @@ $(document).ready(function(){
 			};
 
 			/* end */
+
+			/** Add Animation to the winning streak */
+			function resetTmpPos() {
+				tmp_row = row;
+				tmp_column = column;
+			}
+			if (won.top_left_bottom_right) {
+				$('div[data-row="'+row+'"][data-column="'+column+'"]').addClass("wonStreak");
+				resetTmpPos();
+				do {
+					up();left();
+					if (isOutOfBox(tmp_row,tmp_column)) break;
+					if (status[tmp_row][tmp_column] == turn) 
+						$('div[data-row="'+tmp_row+'"][data-column="'+tmp_column+'"]').addClass("wonStreak");
+					else break;
+				} while (true);
+				resetTmpPos();
+				do {
+					down();right();
+					if (isOutOfBox(tmp_row,tmp_column)) break;
+					if (status[tmp_row][tmp_column] == turn) 
+						$('div[data-row="'+tmp_row+'"][data-column="'+tmp_column+'"]').addClass("wonStreak");
+					else break;
+				} while (true);
+			}
+
+			if (won.top_right_bottom_left) {
+				$('div[data-row="'+row+'"][data-column="'+column+'"]').addClass("wonStreak");
+				resetTmpPos();
+				do {
+					up();right();
+					if (isOutOfBox(tmp_row,tmp_column)) break;
+					if (status[tmp_row][tmp_column] == turn) 
+						$('div[data-row="'+tmp_row+'"][data-column="'+tmp_column+'"]').addClass("wonStreak");
+					else break;
+				} while (true);
+				resetTmpPos();
+				do {
+					down();left();
+					if (isOutOfBox(tmp_row,tmp_column)) break;
+					if (status[tmp_row][tmp_column] == turn) 
+						$('div[data-row="'+tmp_row+'"][data-column="'+tmp_column+'"]').addClass("wonStreak");
+					else break;
+				} while (true);
+			}
+
+			if (won.top_bottom) {
+				$('div[data-row="'+row+'"][data-column="'+column+'"]').addClass("wonStreak");
+				resetTmpPos();
+				do {
+					up();
+					if (isOutOfBox(tmp_row,tmp_column)) break;
+					if (status[tmp_row][tmp_column] == turn)
+						$('div[data-row="'+tmp_row+'"][data-column="'+tmp_column+'"]').addClass("wonStreak");
+					else break;
+				} while (true);
+				resetTmpPos();
+				do {
+					down();
+					if (isOutOfBox(tmp_row,tmp_column)) break;
+					if (status[tmp_row][tmp_column] == turn)
+						$('div[data-row="'+tmp_row+'"][data-column="'+tmp_column+'"]').addClass("wonStreak");
+					else break;
+				} while (true);
+			}
+
+			if (won.left_right) {
+				$('div[data-row="'+row+'"][data-column="'+column+'"]').addClass("wonStreak");
+				resetTmpPos();
+				do {
+					left();
+					if (isOutOfBox(tmp_row,tmp_column)) break;
+					if (status[tmp_row][tmp_column] == turn) 
+						$('div[data-row="'+tmp_row+'"][data-column="'+tmp_column+'"]').addClass("wonStreak");
+					else break;
+				} while (true);
+				resetTmpPos();
+				do {
+					right();
+					if (isOutOfBox(tmp_row,tmp_column)) break;
+					if (status[tmp_row][tmp_column] == turn) 
+						$('div[data-row="'+tmp_row+'"][data-column="'+tmp_column+'"]').addClass("wonStreak");
+					else break;
+				} while (true);
+			}
+			/* Add Animation to the winning streak **/
 
 			// //up
 			// win[0]=true;
@@ -570,6 +677,7 @@ $(document).ready(function(){
 				"isvalid": isvalid,
 				"pre_status": pre_status,
 				"pre_isvalid": pre_isvalid,
+				"hasWon": hasWon
 			}
 			localStorage["gameStatus"] = JSON.stringify(gameStatusForJSON);
 			// console.log(localStorage["gameStatus"]);

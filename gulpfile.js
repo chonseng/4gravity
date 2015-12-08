@@ -19,7 +19,7 @@ gulp.task('sass', function() {
 gulp.task('scripts', function() {
     return gulp.src([
     	'js/source/game.js'])
-        .pipe(uglify())
+        // .pipe(uglify())
             .pipe(concat('script.js'))
         .pipe(gulp.dest('js'));
 });
