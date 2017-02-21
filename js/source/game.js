@@ -58,10 +58,11 @@ $(document).ready(function(){
 	var size = 10; // size of the chess
 	var numOfPlayer = 4;
 	var turn = 1; // player's turn
+	var learningMode = false; // learning mode will show all the available spots
 	var gameEnded = false;
 
 	// get data from localStorage
-	console.log(localStorage["gameSetting"]);
+	// console.log(localStorage["gameSetting"]);
 	if (localStorage["gameSetting"] != null && localStorage["gameSetting"] != "") {
 		var ls_size = JSON.parse(localStorage["gameSetting"]).size;
 		var ls_numOfPlayer = JSON.parse(localStorage["gameSetting"]).numOfPlayer;
@@ -172,7 +173,7 @@ $(document).ready(function(){
 		var screenWidth = $("#wrapper").width();
 		var MARGIN = 2;
 		var myWidth = Math.floor(screenWidth/size) - MARGIN*2;
-		console.log("SIZE",size);
+		// console.log("SIZE",size);
 		for (var i = 0; i < size; i++) {
 			for (var j = 0; j < size; j++) {
 				$("#wrapper").append('<div data-row="'+i+'" data-column="'+j+'" class="check"></div>');
@@ -183,7 +184,7 @@ $(document).ready(function(){
 		// get data from localStorage
 		if (localStorage["gameStatus"] != null  && localStorage["gameStatus"] != "") {
 			if (!JSON.parse(localStorage["gameStatus"]).hasWon) {
-				console.log(JSON.parse(localStorage["gameStatus"]).status);
+				// console.log(JSON.parse(localStorage["gameStatus"]).status);
 				var ls_isvalid = JSON.parse(localStorage["gameStatus"]).isvalid;
 				var ls_status = JSON.parse(localStorage["gameStatus"]).status;
 				var ls_pre_status = JSON.parse(localStorage["gameStatus"]).pre_status;
@@ -192,7 +193,7 @@ $(document).ready(function(){
 				for (var i = 0; i < size; i++) {
 					for (var j = 0; j < size; j++) {
 						if (ls_status[i][j] != 0) {
-							console.log('div[data-row="'+i+'"][data-column="'+j+'"]');
+							// console.log('div[data-row="'+i+'"][data-column="'+j+'"]');
 							$('div[data-row="'+i+'"][data-column="'+j+'"]').addClass("player"+ls_status[i][j]);
 						}
 					};
@@ -204,7 +205,7 @@ $(document).ready(function(){
 				turn = ls_turn;
 			}
 		}
-		
+
 		// create gameSetting object and save it to localStorage
 		var gameSettingForJSON = {
 			"numOfPlayer": numOfPlayer,
@@ -212,6 +213,7 @@ $(document).ready(function(){
 		}
 		localStorage["gameSetting"] = JSON.stringify(gameSettingForJSON);
 
+		addClassToValidSpots();
 	}
 	var endGame = function () {
 		gameEnded = true;
@@ -222,6 +224,16 @@ $(document).ready(function(){
 		};
 	}
 	
+	var addClassToValidSpots = () => {
+		$(".valid").removeClass("valid");
+		for (var i = 0; i < size; i++) {
+			for (var j = 0; j < size; j++) {
+				if (isvalid[i][j])
+					$('div[data-row="'+i+'"][data-column="'+j+'"]').addClass("valid");
+			};
+		};
+	}
+
 	$(window).resize(function(){
 		var screenWidth = $("#wrapper").width();
 		var MARGIN = 2;
@@ -231,6 +243,8 @@ $(document).ready(function(){
 	})
 	newGame();
 	changePlayerInfo();
+	addClassToValidSpots();
+	console.log(status);
 	// game settings
 	$(document).on("click tap",".numOfPlayer li",function() {
 		$(".numOfPlayer li").removeClass();
@@ -240,6 +254,8 @@ $(document).ready(function(){
 		$(".size li").removeClass();
 		$(this).addClass("selected");
 	})
+
+	
 
 	// gameplay
 
@@ -265,7 +281,7 @@ $(document).ready(function(){
 			$(".check").removeClass("lastClicked");
 			$(this).addClass("lastClicked");
 
-			// Check whether the new step is a valid step
+			/** Update isvalid array **/
 			var tmp_row, tmp_column;
 			//search bottom
 			tmp_row = row;
@@ -337,6 +353,14 @@ $(document).ready(function(){
 					isvalid[row][tmp_column] = true;
 			}
 
+			/******************************** 
+
+			Add classes for Learning Mode 
+
+			********************************/
+			isvalid[row][column] = false;
+			addClassToValidSpots();
+
 			// win or not
 			var win = new Array(8);
 			var count = 0;
@@ -395,7 +419,7 @@ $(document).ready(function(){
 				top_bottom: false,
 				left_right: false,
 			}
-			console.log(won);
+
 			// top left to bottom right
 			jumpTo("up","left");
 			count = 0;
@@ -667,8 +691,7 @@ $(document).ready(function(){
 				nextTurn();
 			}
 
-			isvalid[row][column] = false;
-			// console.log("status",status);
+			
 
 			// Create gameStatus object and save it to localStorage
 			var gameStatusForJSON = {
@@ -718,6 +741,7 @@ $(document).ready(function(){
 	$("#back").click(function(){
 		status = clone(pre_status);
 		isvalid = clone(pre_isvalid);
+		addClassToValidSpots();
 		preTurn();
 		$(pre_object).removeClass("player"+turn);
 		console.log(pre_object);
@@ -726,5 +750,23 @@ $(document).ready(function(){
 		$("#back").hide();
 		// $(this).addClass("player"+turn);
 		return false;
+	})
+
+	$("#learning_mode").click(function(){
+		//toggle
+		if (learningMode) learningMode = false;
+		else learningMode = true;
+
+		if (learningMode) {
+			$("#wrapper").addClass("learningMode");
+			$("#learning_mode").addClass("checked");
+			$("#learning_mode").text("Learning Mode: On");
+		}
+		else {
+			$("#wrapper").removeClass("learningMode");
+			$("#learning_mode").removeClass("checked");
+			$("#learning_mode").text("Learning Mode: Off");
+		}
+
 	})
 })

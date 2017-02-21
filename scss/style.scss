@@ -32,6 +32,10 @@ $pink: #FF358B;
 	width: 100%;
 	overflow: visible;
 	margin-bottom: 10px;
+	&.learningMode .valid {
+		// border: 1px solid white;
+		box-shadow: 0 0 10px $pink inset;
+	}
 }
 body {
 	font-family: 'Maven Pro', 'Nixie One', cursive;
@@ -42,6 +46,9 @@ h1 {
 	font-family: 'Pacifico', cursive;
 	color: #D5FBFF;
 	text-align: center;
+}
+section.newGame {
+	margin-top: 2rem;
 }
 .check {
 	width: 80px;
@@ -213,4 +220,24 @@ h1 {
 			background: $highlightColor;
 		}
 	}	
+}
+
+#learning_mode {
+	position: relative;
+	margin: 1rem 0;
+	background: $highlightColor;
+	// border: 3px solid $highlightColor;
+	display: block;
+	&.checked {
+		background: $pink;
+	}
+	// &:after {
+	// 	content: '';
+	// 	position: absolute;
+	// 	left: 0;
+	// 	right: 0;
+	// 	bottom: -5px;
+	// 	height: 5px;
+	// 	background: red;
+	// }
 }

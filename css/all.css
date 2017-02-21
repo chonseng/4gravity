@@ -23,6 +23,8 @@
   width: 100%;
   overflow: visible;
   margin-bottom: 10px; }
+  #wrapper.learningMode .valid {
+    box-shadow: 0 0 10px #FF358B inset; }
 
 body {
   font-family: 'Maven Pro', 'Nixie One', cursive;
@@ -34,6 +36,9 @@ h1 {
   color: #D5FBFF;
   text-align: center; }
 
+section.newGame {
+  margin-top: 2rem; }
+
 .check {
   width: 80px;
   height: 80px;
@@ -41,9 +46,9 @@ h1 {
   float: left;
   border-radius: 5px;
   margin: 2px;
-  -webkit-transition: 0.2s ease-out all;
-  -o-transition: 0.2s ease-out all;
-  transition: 0.2s ease-out all; }
+  -webkit-transition: .2s ease-out all;
+  -o-transition: .2s ease-out all;
+  transition: .2s ease-out all; }
   .check.lastClicked {
     animation-duration: 6s;
     animation-delay: 5s;
@@ -58,23 +63,18 @@ h1 {
 @keyframes pulse {
   0% {
     transform: scale(1); }
-
   2.5%, 7.5% {
     transform: scale(1.2); }
-
   5% {
     transform: scale(1); }
-
   10%, 100% {
     transform: scale(1); } }
 
 @keyframes wonPulse {
   0% {
     transform: scale(1) rotateZ(0); }
-
   5% {
     transform: scale(1.2) rotateZ(0); }
-
   35%, 100% {
     transform: scale(1) rotateZ(1turn); } }
 
@@ -111,7 +111,6 @@ h1 {
 @keyframes turnAround {
   0% {
     transform: rotate(0); }
-
   10%, 100% {
     transform: rotateZ(1turn); } }
 
@@ -129,7 +128,7 @@ h1 {
   border-radius: 5px; }
 
 .button:hover {
-  background: #ff0270; }
+  background: #ff026e; }
 
 #new_game {
   margin: 1rem 0;
@@ -173,3 +172,11 @@ h1 {
         background: #FF358B; }
       .settings li.selected:nth-child(6n) {
         background: #553285; }
+
+#learning_mode {
+  position: relative;
+  margin: 1rem 0;
+  background: #573480;
+  display: block; }
+  #learning_mode.checked {
+    background: #FF358B; }
