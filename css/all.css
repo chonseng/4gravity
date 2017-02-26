@@ -31,13 +31,16 @@ body {
   background: #37195A;
   color: #D5FBFF; }
 
-h1 {
+h1, .row h2 {
   font-family: 'Pacifico', cursive;
   color: #D5FBFF;
   text-align: center; }
 
-section.newGame {
-  margin-top: 2rem; }
+h2 {
+  margin: 2rem 0; }
+
+section#game {
+  margin-top: 0; }
 
 .check {
   width: 80px;
