@@ -7,7 +7,7 @@
   src: url(../Pacifico.ttf); }
 
 @font-face {
-  font-family: "Maven Pro";
+  font-family: "Maven Pro Offline";
   src: url(../MavenPro.ttf); }
 
 * {
@@ -27,9 +27,10 @@
     box-shadow: 0 0 10px #FF358B inset; }
 
 body {
-  font-family: 'Maven Pro', 'Nixie One', cursive;
+  font-family: 'Maven Pro', 'Maven Pro Offline', 'Nixie One', cursive;
   background: #37195A;
-  color: #D5FBFF; }
+  color: #D5FBFF;
+  font-size: 18px; }
 
 h1, .row h2 {
   font-family: 'Pacifico', cursive;
@@ -41,6 +42,10 @@ h2 {
 
 section#game {
   margin-top: 0; }
+
+p {
+  font-size: 1em;
+  line-height: 1.65; }
 
 .check {
   width: 80px;
@@ -128,7 +133,8 @@ section#game {
 
 .button {
   background: #FF358B;
-  border-radius: 5px; }
+  border-radius: 5px;
+  font-family: inherit; }
 
 .button:hover {
   background: #ff026e; }
@@ -161,6 +167,8 @@ section#game {
     margin: 2px 5px;
     background: #26094A;
     border-radius: 5px; }
+    .settings li:first-child {
+      margin-left: 0; }
     .settings li.selected {
       background: #573480; }
       .settings li.selected:nth-child(6n+1) {

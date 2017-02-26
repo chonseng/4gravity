@@ -16,7 +16,7 @@ $pink: #FF358B;
   src: url(../Pacifico.ttf);
 }
 @font-face {
-  font-family: "Maven Pro";
+  font-family: "Maven Pro Offline";
   src: url(../MavenPro.ttf);
 }
 * {
@@ -38,9 +38,10 @@ $pink: #FF358B;
 	}
 }
 body {
-	font-family: 'Maven Pro', 'Nixie One', cursive;
+	font-family: 'Maven Pro', 'Maven Pro Offline', 'Nixie One', cursive;
 	background: $mainColor; //2
 	color: #D5FBFF;
+	font-size: 18px;
 }
 h1, .row h2 {
 	font-family: 'Pacifico', cursive;
@@ -55,6 +56,10 @@ section {
 	&#game {
 		margin-top: 0;
 	}
+}
+p {
+	font-size: 1em;
+	line-height: 1.65;
 }
 .check {
 	width: 80px;
@@ -175,6 +180,7 @@ section {
 .button {
 	background: $pink;
 	border-radius: 5px;
+	font-family: inherit;
 }
 .button:hover {
 	background: darken($pink,10%);
@@ -216,6 +222,9 @@ section {
 		margin: 2px 5px;
 		background: $darkColor;
 		border-radius: 5px;
+		&:first-child{
+			margin-left: 0;
+		}
 		&.selected {
 			&:nth-child(6n+1) { background: $red }
 			&:nth-child(6n+2) { background: $blue }

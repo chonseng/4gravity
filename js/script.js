@@ -102,9 +102,17 @@ $(document).ready(function(){
 	$("#back").hide();
 	
 	// $("#game").hide();
+	var playerName = {
+		0: "Red",
+		1: "Blue",
+		2: "Yellow",
+		3: "Green",
+		4: "Pink",
+		5: "Purple",
+	}
 
 	var changePlayerInfo = function() {
-		$(".turn .name").text("Player"+turn);
+		$(".turn .name").text(playerName[turn-1]);
 		$("#player_color").removeClass();
 		$("#player_color").addClass("player"+turn);
 		var preTurn = turn>1 ? turn-1 : numOfPlayer;
@@ -682,7 +690,7 @@ $(document).ready(function(){
 				// alert("Player"+turn+" won!");
 				swal({
 					title: "Congratulations!",
-					text: "Player"+turn+" won the game!",
+					text: playerName[turn-1]+" won the game!",
 				})
 				endGame();
 				$("#back").hide();
@@ -717,7 +725,7 @@ $(document).ready(function(){
 		else {
 			swal({
 				title: "Are you sure to start a new game?",
-				text: "You will not be able to recover this game progress!",
+				text: "You will not be able to recover the game progress!",
 				type: "info",
 				showCancelButton: true,
 				confirmButtonColor: "#DD6B55",
