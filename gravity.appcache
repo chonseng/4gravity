@@ -11,6 +11,7 @@ css/foundation.css
 css/foundation.min.css
 css/normalize.css
 css/style.css
+css/all.css
 dist/sweetalert.min.js
 dist/sweetalert.css
 js/foundation.min.js
