@@ -99,7 +99,7 @@ $(document).ready(function(){
 			pre_isvalid[i] = new Array(MAX_SIZE);
 	};
 	var pre_object;
-	$("#back").hide();
+	$("#retract").hide();
 	
 	// $("#game").hide();
 	var playerName = {
@@ -116,8 +116,8 @@ $(document).ready(function(){
 		$("#player_color").removeClass();
 		$("#player_color").addClass("player"+turn);
 		var preTurn = turn>1 ? turn-1 : numOfPlayer;
-		$("#back").removeClass();
-		$("#back").addClass("player"+preTurn);
+		$("#retract").removeClass();
+		$("#retract").addClass("player"+preTurn);
 	}
 	var nextTurn = function() {
 		turn++;	
@@ -131,7 +131,7 @@ $(document).ready(function(){
 	}
 	var newGame = function() {
 		gameEnded = false;
-		$("#back").hide();
+		$("#retract").hide();
 		if ($("#numOfPlayer").val() != "") {
 			// numOfPlayer = $("#numOfPlayer").val();
 			numOfPlayer = $(".numOfPlayer .selected").html();
@@ -280,7 +280,7 @@ $(document).ready(function(){
 		if (isvalid[row][column] == true) {
 			pre_status = clone(status); // Save the Previous Chess Status
 			pre_isvalid = clone(isvalid);
-			$("#back").show();
+			$("#retract").show();
 			pre_object = this;
 			$(this).addClass("player"+turn);
 			status[row][column] = turn;
@@ -693,7 +693,7 @@ $(document).ready(function(){
 					text: playerName[turn-1]+" won the game!",
 				})
 				endGame();
-				$("#back").hide();
+				$("#retract").hide();
 			}
 			else {
 				nextTurn();
@@ -746,7 +746,7 @@ $(document).ready(function(){
 
 	})
 
-	$("#back").click(function(){
+	$("#retract").click(function(){
 		status = clone(pre_status);
 		isvalid = clone(pre_isvalid);
 		addClassToValidSpots();
@@ -755,7 +755,7 @@ $(document).ready(function(){
 		console.log(pre_object);
 		$(".check").removeClass("lastClicked");
 		$(pre_lastClicked).addClass("lastClicked");
-		$("#back").hide();
+		$("#retract").hide();
 		// $(this).addClass("player"+turn);
 		return false;
 	})
