@@ -1,6 +1,3 @@
-$mainColor: #37195A;
-// $darkColor: #26094A;
-$darkColor: rgba(255, 255, 255, .9);
 $lightWhite: rgba(255, 255, 255, .25);
 $darkWhite: rgba(255, 255, 255, .3);
 $highlightColor: #573480;
@@ -43,7 +40,6 @@ $textColor: #D5FBFF;
 }
 body {
 	font-family: 'Maven Pro', 'Maven Pro Offline', 'Nixie One', cursive;
-	// background: $mainColor; //2
 	color: $textColor;
 	font-size: 18px;
 
@@ -73,7 +69,6 @@ p {
 .check {
 	width: 80px;
 	height: 80px;
-	// background: $darkColor; //2
 	border: 2px solid $lightWhite;
 	float: left;
 	border-radius: 5px;
@@ -227,29 +222,6 @@ p {
   }
 }
 
-
-// .button {
-// 	// border: 2px solid $lightWhite;
-// 	position: relative;
-// 	top: 0;
-// 	margin-top: 0;
-// 	margin-bottom: 10px;
-// 	background: $lightWhite;
-// 	-webkit-box-shadow: 0 5px 0 $darkWhite,0 7px 2px rgba(0,0,0,0.25);
-//   	-moz-box-shadow: 0 5px 0 $darkWhite,0 7px 2px rgba(0,0,0,0.25);
-//   	box-shadow: 0 5px 0 $darkWhite,0px 7px 3px rgba(0,0,0,0.25);
-// 	border-radius: 5px;
-// 	font-family: inherit;
-// 	&:hover {
-// 		background: $lightWhite;		
-// 	}
-// 	&:active {
-// 	  /** Remove 3D Block Effect on Click **/
-// 	  box-shadow: none;
-// 	  top: 10px;
-// 	  margin-bottom: 0;
-// 	}
-// }
 #new_game {
 	margin: 1rem 0;
 	display: block;
@@ -276,9 +248,7 @@ p {
 	margin-top: 5px;
 
 }
-// #back:hover {
-// 	background: darken(#E5B96F,10%);
-// }
+
 .version {
 	text-align: center;
 }
