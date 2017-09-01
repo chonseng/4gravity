@@ -24,13 +24,17 @@
   overflow: visible;
   margin-bottom: 10px; }
   #wrapper.learningMode .valid {
+    border: 2px solid #FF358B;
     box-shadow: 0 0 10px #FF358B inset; }
 
 body {
   font-family: 'Maven Pro', 'Maven Pro Offline', 'Nixie One', cursive;
-  background: #37195A;
   color: #D5FBFF;
-  font-size: 18px; }
+  font-size: 18px;
+  background-image: url(../img/bg.svg);
+  background-size: auto 100%;
+  background-attachment: fixed;
+  background-position: center center; }
 
 h1, .row h2 {
   font-family: 'Pacifico', cursive;
@@ -50,7 +54,7 @@ p {
 .check {
   width: 80px;
   height: 80px;
-  background: #26094A;
+  border: 2px solid rgba(255, 255, 255, 0.25);
   float: left;
   border-radius: 5px;
   margin: 2px;
@@ -132,16 +136,41 @@ p {
   color: #59D8E6; }
 
 .button {
-  background: #FF358B;
-  border-radius: 5px;
-  font-family: inherit; }
-
-.button:hover {
-  background: #ff026e; }
+  /** Offset the Position **/
+  position: relative;
+  top: 0;
+  margin-top: 0;
+  margin-bottom: 5px;
+  box-shadow: 0 5px 0 0 rgba(255, 255, 255, 0.3);
+  display: block;
+  background: rgba(255, 255, 255, 0.25);
+  color: #eee;
+  border: 0;
+  border-radius: 5px; }
+  .button:active {
+    box-shadow: none;
+    top: 5px;
+    margin-bottom: 0; }
+  .button:hover {
+    opacity: 1;
+    background: rgba(255, 255, 255, 0.25); }
+  .button:active, .button:focus {
+    outline: 0; }
+  .button.checked {
+    background: #FF358B;
+    box-shadow: 0 5px 0 0 #9b0042; }
+    .button.checked:active {
+      box-shadow: none; }
 
 #new_game {
   margin: 1rem 0;
-  display: block; }
+  display: block;
+  background-color: transparent;
+  box-shadow: 0 5px 0 0 #D5FBFF;
+  color: #D5FBFF;
+  border: 1px solid #D5FBFF; }
+  #new_game:active {
+    box-shadow: none; }
 
 #retract {
   height: 40px;
@@ -165,7 +194,7 @@ p {
     float: left;
     padding: 10px 20px;
     margin: 2px 5px;
-    background: #26094A;
+    background: black;
     border-radius: 5px; }
     .settings li:first-child {
       margin-left: 0; }
@@ -187,7 +216,4 @@ p {
 #learning_mode {
   position: relative;
   margin: 1rem 0;
-  background: #573480;
   display: block; }
-  #learning_mode.checked {
-    background: #FF358B; }

@@ -1,5 +1,8 @@
 $mainColor: #37195A;
-$darkColor: #26094A;
+// $darkColor: #26094A;
+$darkColor: rgba(255, 255, 255, .9);
+$lightWhite: rgba(255, 255, 255, .25);
+$darkWhite: rgba(255, 255, 255, .3);
 $highlightColor: #573480;
 $red: #BF0426;
 $blue: #59D8E6;
@@ -7,6 +10,7 @@ $yellow: #F0C600;
 $green: #45BF55;
 $purple: #553285;
 $pink: #FF358B;
+$textColor: #D5FBFF;
 @font-face {
   font-family: "Nixie One";
   src: url(../NixieOne-Regular.otf);
@@ -33,19 +37,24 @@ $pink: #FF358B;
 	overflow: visible;
 	margin-bottom: 10px;
 	&.learningMode .valid {
-		// border: 1px solid white;
+		border: 2px solid $pink;
 		box-shadow: 0 0 10px $pink inset;
 	}
 }
 body {
 	font-family: 'Maven Pro', 'Maven Pro Offline', 'Nixie One', cursive;
-	background: $mainColor; //2
-	color: #D5FBFF;
+	// background: $mainColor; //2
+	color: $textColor;
 	font-size: 18px;
+
+	background-image: url(../img/bg.svg);
+	background-size: auto 100%;
+	background-attachment: fixed;
+	background-position: center center;
 }
 h1, .row h2 {
 	font-family: 'Pacifico', cursive;
-	color: #D5FBFF;
+	color: $textColor;
 	text-align: center;
 }
 h2 {
@@ -64,8 +73,8 @@ p {
 .check {
 	width: 80px;
 	height: 80px;
-	background: $darkColor; //2
-	// border: 1px solid #eee;
+	// background: $darkColor; //2
+	border: 2px solid $lightWhite;
 	float: left;
 	border-radius: 5px;
 	margin: 2px; // MARGIN in javascript
@@ -177,17 +186,80 @@ p {
 .crafted a {
 	color: $blue;
 }
+
+
 .button {
+  /** Offset the Position **/
+  position: relative;
+  top: 0;
+  margin-top: 0;
+  margin-bottom: 5px;
+
+  box-shadow: 0 5px 0 0 $darkWhite;
+
+  display: block;
+  background: $lightWhite;
+  color: #eee;
+
+  border: 0;
+  border-radius: 5px;
+  &:active {
+    box-shadow: none;
+    top: 5px;
+    margin-bottom: 0;
+  }
+
+  &:hover {
+    opacity: 1;
+    background: $lightWhite;
+  }
+
+  &:active,
+  &:focus {
+    outline: 0;
+  }
+  &.checked {
 	background: $pink;
-	border-radius: 5px;
-	font-family: inherit;
+	box-shadow: 0 5px 0 0 darken($pink, 30%);
+	&:active {
+		box-shadow: none;
+	}
+  }
 }
-.button:hover {
-	background: darken($pink,10%);
-}
+
+
+// .button {
+// 	// border: 2px solid $lightWhite;
+// 	position: relative;
+// 	top: 0;
+// 	margin-top: 0;
+// 	margin-bottom: 10px;
+// 	background: $lightWhite;
+// 	-webkit-box-shadow: 0 5px 0 $darkWhite,0 7px 2px rgba(0,0,0,0.25);
+//   	-moz-box-shadow: 0 5px 0 $darkWhite,0 7px 2px rgba(0,0,0,0.25);
+//   	box-shadow: 0 5px 0 $darkWhite,0px 7px 3px rgba(0,0,0,0.25);
+// 	border-radius: 5px;
+// 	font-family: inherit;
+// 	&:hover {
+// 		background: $lightWhite;		
+// 	}
+// 	&:active {
+// 	  /** Remove 3D Block Effect on Click **/
+// 	  box-shadow: none;
+// 	  top: 10px;
+// 	  margin-bottom: 0;
+// 	}
+// }
 #new_game {
 	margin: 1rem 0;
 	display: block;
+	background-color: transparent;
+	box-shadow: 0 5px 0 0 $textColor;
+	color: $textColor;
+	border: 1px solid $textColor;
+	&:active {
+		box-shadow: none;
+	}
 }
 
 #retract {
@@ -220,7 +292,7 @@ p {
 		float: left;
 		padding: 10px 20px;
 		margin: 2px 5px;
-		background: $darkColor;
+		background: black;
 		border-radius: 5px;
 		&:first-child{
 			margin-left: 0;
@@ -240,19 +312,5 @@ p {
 #learning_mode {
 	position: relative;
 	margin: 1rem 0;
-	background: $highlightColor;
-	// border: 3px solid $highlightColor;
 	display: block;
-	&.checked {
-		background: $pink;
-	}
-	// &:after {
-	// 	content: '';
-	// 	position: absolute;
-	// 	left: 0;
-	// 	right: 0;
-	// 	bottom: -5px;
-	// 	height: 5px;
-	// 	background: red;
-	// }
 }
