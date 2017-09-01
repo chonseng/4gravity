@@ -136,6 +136,7 @@ p {
   color: #59D8E6; }
 
 .button {
+  font-family: 'Maven Pro', 'Maven Pro Offline', 'Nixie One', cursive;
   /** Offset the Position **/
   position: relative;
   top: 0;

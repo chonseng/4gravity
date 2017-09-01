@@ -184,42 +184,43 @@ p {
 
 
 .button {
-  /** Offset the Position **/
-  position: relative;
-  top: 0;
-  margin-top: 0;
-  margin-bottom: 5px;
+	font-family: 'Maven Pro', 'Maven Pro Offline', 'Nixie One', cursive;
+	/** Offset the Position **/
+	position: relative;
+	top: 0;
+	margin-top: 0;
+	margin-bottom: 5px;
 
-  box-shadow: 0 5px 0 0 $darkWhite;
+	box-shadow: 0 5px 0 0 $darkWhite;
 
-  display: block;
-  background: $lightWhite;
-  color: #eee;
+	display: block;
+	background: $lightWhite;
+	color: #eee;
 
-  border: 0;
-  border-radius: 5px;
-  &:active {
-    box-shadow: none;
-    top: 5px;
-    margin-bottom: 0;
-  }
+	border: 0;
+	border-radius: 5px;
+	&:active {
+	box-shadow: none;
+	top: 5px;
+	margin-bottom: 0;
+	}
 
-  &:hover {
-    opacity: 1;
-    background: $lightWhite;
-  }
+	&:hover {
+	opacity: 1;
+	background: $lightWhite;
+	}
 
-  &:active,
-  &:focus {
-    outline: 0;
-  }
-  &.checked {
+	&:active,
+	&:focus {
+	outline: 0;
+	}
+	&.checked {
 	background: $pink;
 	box-shadow: 0 5px 0 0 darken($pink, 30%);
 	&:active {
 		box-shadow: none;
 	}
-  }
+	}
 }
 
 #new_game {
