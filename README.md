@@ -1,5 +1,8 @@
-# 4Gravity
-https://chonseng.github.io/4gravity
+# 4Gravity (Deprecated)
+
+[![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
+
+This project is rewritten using Angular 8. See the latest [repo](https://github.com/chonseng/four-gravity).
 
 4Gravity is a static website game. It is designed to play on smartphones, tablets and desktops.
 
